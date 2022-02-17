@@ -1,0 +1,21 @@
+# General Commands
+alias sudo='sudo '
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='rsync -az'
+alias l='ls -laH --group-directories-first --color=auto'
+alias ll='ls -lH --group-directories-first --color=auto'
+alias t2='tree -d -L 2'
+alias t3='tree -d -L 3'
+alias die='shutdown now'
+alias grep='grep --color=auto'
+alias md='mkdir'
+alias bsrc='source ~/.bashrc'
+alias vibash='vim ~/.bashrc'
+alias now='date -u +"%Y-%m-%dT%H:%M:%SZ"'
+alias vi='vim'
+
+# Tmux
+alias tnew='tmux new -s '
+alias ta='tmux attach -t '
+alias tkill='tmux kill-session -t '
