@@ -23,6 +23,7 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+
 # Match all files and zero or more directories and subdirectories.
 shopt -s globstar
 
@@ -72,7 +73,6 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # Enable programmable completion features
-
 if ! shopt -oq posix; then
     if [ -f /usr/share/bash-completion/bash_completion ]; then
         . /usr/share/bash-completion/bash_completion
@@ -85,6 +85,7 @@ fi
 function proxy_on() {
     export ALL_PROXY="http://$PROXY_SERVER:$PROXY_PORT"
     echo -e "Proxy On: $ALL_PROXY"
+
 }
 
 # Disable proxy
