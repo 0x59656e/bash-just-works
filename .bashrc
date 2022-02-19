@@ -1,6 +1,6 @@
 export PROXY_SERVER=''
 export PROXY_PORT=''
-export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/bin:/sbin:$PATH"
 
 # If not running interactively, don't do anything
 case $- in
@@ -23,9 +23,11 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+# Match all files and zero or more directories and subdirectories.
+shopt -s globstar
+
+# Enable extended globs
+shopt -s extglob
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
@@ -65,7 +67,6 @@ xterm* | rxvt*)
 esac
 
 # Alias definitions.
-
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -82,12 +83,60 @@ fi
 
 # Enable proxy
 function proxy_on() {
-    export ALL_PROXY=socks5://PROXY_SERVER:PROXY_PORT
-    echo -e "Proxy On: ${ALL_PROXY}"
+    export ALL_PROXY="http://$PROXY_SERVER:$PROXY_PORT"
+    echo -e "Proxy On: $ALL_PROXY"
 }
 
 # Disable proxy
 function proxy_off() {
     unset ALL_PROXY
     echo -e "Proxy Off"
+}
+
+# Create directory and go into it
+function mdcd() {
+    mkdir -pv $1
+    cd $1
+}
+
+# Extract any archive
+# TODO: test it with different file types
+# Source: https://wiki.archlinux.org/title/Bash/Functions#Extract
+function extract() {
+    local c e i
+
+    (($#)) || return
+
+    for i; do
+        c=''
+        e=1
+
+        if [[ ! -r $i ]]; then
+            echo "$0: file is unreadable: \`$i'" >&2
+            continue
+        fi
+
+        case $i in
+        *.t@(gz|lz|xz|b@(2|z?(2))|a@(z|r?(.@(Z|bz?(2)|gz|lzma|xz)))))
+            c=(tar xvf)
+            ;;
+        *.7z) c=(7z x) ;;
+        *.Z) c=(uncompress) ;;
+        *.bz2) c=(bunzip2) ;;
+        *.exe) c=(cabextract) ;;
+        *.gz) c=(gunzip) ;;
+        *.rar) c=(unrar x) ;;
+        *.xz) c=(unxz) ;;
+        *.zip) c=(unzip) ;;
+        *.zst) c=(unzstd) ;;
+        *)
+            echo "$0: unrecognized file extension: \`$i'" >&2
+            continue
+            ;;
+        esac
+
+        command "${c[@]}" "$i"
+        ((e = e || $?))
+    done
+    return "$e"
 }
