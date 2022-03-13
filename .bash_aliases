@@ -2,10 +2,10 @@
 alias sudo='sudo '
 alias rm='rm -i'
 alias mv='mv -i'
-alias l='ls -laH --group-directories-first --color=auto'
-alias ll='ls -lH --group-directories-first --color=auto'
-alias lles='ls -laH --group-directories-first --color=auto | less -r'
-alias llles='ls -lH --group-directories-first --color=auto | less -r'
+alias l='ls -lAhHF --group-directories-first --color=auto'
+alias ll='ls -lhHF --group-directories-first --color=auto'
+alias lles='ls -lAhHF --group-directories-first --color=auto | less -r'
+alias llles='ls -lhHF --group-directories-first --color=auto | less -r'
 alias ..='cd ..'
 alias ...='cd ../../../'
 alias ....='cd ../../../../'
@@ -38,13 +38,16 @@ alias fwrules='iptables -L FORWARD -nv --line-numbers'
 alias myip='curl myip.ipip.net'
 alias apt-get="sudo apt-get"
 alias apt-upgrade='sudo apt-get update && sudo apt-get upgrade'
+alias dld='wget -bq --tries=5'
+alias rlog='tail -F'
+alias testapt='apt-get install -qsy'
 
 # Commands may not installed by default
 alias cp='rsync -az'
 alias vi='vim'
 alias vibs='vim ~/.bashrc'
-alias t2='tree -d -L 2'
-alias t3='tree -d -L 3'
+alias t2='tree -L 2'
+alias t3='tree -L 3'
 
 # Deprecated
 alias dtcp='netstat -tlnp'
