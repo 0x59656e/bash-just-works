@@ -81,18 +81,6 @@ if ! shopt -oq posix; then
     fi
 fi
 
-# Enable proxy
-function proxy_on() {
-    export ALL_PROXY="http://$PROXY_SERVER:$PROXY_PORT"
-    echo -e "Proxy On: $ALL_PROXY"
-}
-
-# Disable proxy
-function proxy_off() {
-    unset ALL_PROXY
-    echo -e "Proxy Off"
-}
-
 # Create directory and go into it
 function mdcd() {
     mkdir -pv $1
