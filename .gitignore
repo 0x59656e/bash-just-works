@@ -24,3 +24,4 @@ $RECYCLE.BIN/
 *.lnk
 .vscode/*
 .history/
+.idea/*
