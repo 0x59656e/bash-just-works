@@ -1,6 +1,7 @@
-# Generals 
+# Generals
 alias sudo='sudo '
 alias vi='vim'
+alias nvim='nvim.appimage'
 alias vibs='vim ~/.bashrc'
 alias bsrc='source ~/.bashrc'
 alias l='ls -lAhHF --group-directories-first --color=auto'
